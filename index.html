@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập</title>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="main">
+        <form action="POST" class="form" id="form">
+            <h1 class="heading">ĐĂNG KÝ</h1>
+
+            <div class="form-group">
+                <label for="username" class="label">Username</label>
+                <input type="text" name="username" id="username" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="label">Email</label>
+                <input type="email" name="email" id="email" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="label">Password</label>
+                <input type="password" name="password" id="password" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password" class="label">Confirm password</label>
+                <input type="password" name="confirm-password" id="confirm-password" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="fullname" class="label">Fullname</label>
+                <input type="text" name="fullname" id="fullname" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="age" class="label">Age</label>
+                <input type="number" name="age" id="age" class="input">
+                <span class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="address" class="label">Address</label>
+                <input type="text" name="address" id="address" class="input">
+                <span class="error"></span>
+            </div>
+
+            <button class="submit" id="button">SUBMIT</button>
+        </form>
+    </div>
+   
+    <p id="display"></p>
+
+    <script src="/index.js"></script>
+    <script>
+        Validator({
+            form: '#form',
+            rules: [
+                Validator.isRequired('#username'),
+                Validator.isUsername('#username'),
+                Validator.isRequired('#email'),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#password'),
+                Validator.isPassword('#password'),
+                Validator.isRequired('#confirm-password'),
+                Validator.isConfirmPass('#confirm-password', function() {
+                    const confirmValue = document.querySelector('#password').value;
+                    return confirmValue;
+                }),
+                Validator.isFullname('#fullname'),
+                Validator.isRequired('#age'),
+                Validator.isAge('#age'),
+                Validator.isRequired('#address'),
+            ],
+            onSubmit: function(data) {
+                var data = Object.entries(data).map(e => e.join(':'))
+                document.querySelector("#display").innerHTML = data;              
+            }
+        })
+    </script>   
+</body>
+</html>
